@@ -32,7 +32,7 @@ const MarsPhoto = () => {
               ? "Imagens capturadas por um viajante em marte"
               : "Erro 404"}
           </PageTitle>
-          
+
           {marsRoverPhotos && marsRoverPhotos?.length > 0 && (
             <PhotoContainer>
               {marsRoverPhotos?.map((photo, key) => (
@@ -53,12 +53,18 @@ const MarsPhoto = () => {
                   </PhotoDescriptionContainer>
                 </PhotoCard>
               ))}
+
+              <BackButtonContainer>
+                <Button onClick={() => navigate("/")}>Voltar</Button>
+              </BackButtonContainer>
             </PhotoContainer>
           )}
 
-          <BackButtonContainer>
-            <Button onClick={() => navigate("/")}>Voltar</Button>
-          </BackButtonContainer>
+          {!marsRoverPhotos && (
+            <BackButtonContainer>
+              <Button onClick={() => navigate("/")}>Voltar</Button>
+            </BackButtonContainer>
+          )}
         </PageContainer>
       )}
 
