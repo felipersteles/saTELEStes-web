@@ -1,1 +1,1 @@
-export * from './NasaAPOD'
+export * from './NasaResponse'

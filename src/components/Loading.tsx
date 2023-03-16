@@ -27,8 +27,8 @@ const Loading = () => {
 const Box = styled.div`
   width: 100vw;
   height: 100vh;
-  background: ${(props) => props.theme.text};
-  color: ${(props) => props.theme.body};
+  background: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   display: flex;
   justify-content: center;
   align-items: center;

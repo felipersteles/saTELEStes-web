@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-
     border-radius: 1rem;
     color: #effdea;
     border: none;
@@ -9,6 +8,7 @@ export const Button = styled.button`
     left: 40vw;
     display: flex;
     z-index: 10000;
+    cursor: pointer;
 
     background: linear-gradient(223deg, #5b26ff, #000000, #8d00ff);
     background-size: 600% 600%;
@@ -64,6 +64,35 @@ export const Button = styled.button`
       }
 `;
 
-export const BackButton = styled.button`
-      border: none;
+type PageContainerParams = {
+  backgroundImage?: string;
+}
+
+export const PageContainer= styled.div<PageContainerParams>`
+  height: 100%;
+  display: block;
+  padding: 4px 8px;
+  margin-bottom: 8px;
+
+  
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+
+  background-image: url(${(props) => props.backgroundImage});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+
+  @media (min-width: 720px) {
+    width: 100%;
+  }
+`;
+
+export const BackButtonContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 8px;
 `;

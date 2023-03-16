@@ -1,4 +1,4 @@
-export const SolIcon = ({size = "24", color = "#ffff"}): JSX.Element => {
+export const SunIcon = ({size = "24", color = "#ffff"}): JSX.Element => {
   return (
     <svg
       width={size}

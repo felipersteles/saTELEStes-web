@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { NasaService } from "../apis";
 import { NasaApodResponse } from "../types";
-import { BackButton } from "../style";
+import { BackButtonContainer, Button, PageContainer } from "../style";
+import Loading from "../components/Loading";
 
 const formatDate = (date: string | undefined): string => {
   if (!date) return "";
@@ -26,60 +27,82 @@ const APOD = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getPhotoFromNasaAPI = useCallback(() => {
-    NasaService.getAPOD().then((res) => {
-      setPhotoData(res);
-      setIsLoading(false);
-    });
+    NasaService.getAPOD()
+      .then((res) => {
+        setPhotoData(res);
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   useEffect(getPhotoFromNasaAPI, [getPhotoFromNasaAPI]);
 
   return (
-    <APODContainer>
-      <APODImageContainer>
-        <APODImage src={photoData?.url} alt="Apod image" />
-      </APODImageContainer>
+    <>
+      {!isLoading && (
+        <PageContainer backgroundImage="https://img.ibxk.com.br/2019/05/17/a-17202525498312.jpg">
+          <APODPageContainer>
+            <APODImageContainer>
+              <APODImage src={photoData?.url} alt="Apod image" />
+            </APODImageContainer>
 
-      <DescriptionContainer>
-        <APODTitle>{photoData?.title}</APODTitle>
-        <h3>Data da foto: {formatDate(photoData?.date)}</h3>
-        <p>{photoData?.explanation}</p>
-      </DescriptionContainer>
+            <DescriptionContainer>
+              <APODTitle>{photoData?.title}</APODTitle>
+              <h3>Data da foto: {formatDate(photoData?.date)}</h3>
+              <APODDescription>{photoData?.explanation}</APODDescription>
+            </DescriptionContainer>
 
-      <BackButton onClick={() => navigate("/")}>Voltar</BackButton>
-    </APODContainer>
+            <BackButtonContainer>
+              <Button onClick={() => navigate("/")}>Voltar</Button>
+            </BackButtonContainer>
+          </APODPageContainer>
+        </PageContainer>
+      )}
+
+      {isLoading && <Loading />}
+    </>
   );
 };
 
-const APODContainer = styled.div`
-  height: 100%;
-  display: block;
-  padding: 4px 8px;
-
-  background-image: url(https://img.ibxk.com.br/2019/05/17/a-17202525498312.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
+const APODPageContainer = styled.div`
+  @media (min-width: 720px) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const APODImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 10px;
 `;
 
 const DescriptionContainer = styled.div`
   background-color: #0000008c;
+
+  @media (min-width: 720px) {
+    width: 50%;
+  }
 `;
 
 const APODImage = styled.img`
-  width: 95%;
+  max-height: 25vh;
   object-fit: contain;
+
+  @media (min-width: 720px) {
+    max-height: 50vh;
+  }
 `;
 
 const APODTitle = styled.h1`
+  margin: 0;
+  text-align: center;
+`;
+
+const APODDescription = styled.p`
   margin: 0;
 `;
 

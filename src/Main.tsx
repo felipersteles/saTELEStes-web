@@ -6,10 +6,12 @@ import { temaEscuro } from "./style";
 
 const Home = lazy(() => import("./pages/Home"));
 const APOD = lazy(() => import("./pages/APOD"));
+const MarsPhoto = lazy(() => import("./pages/MarsPhoto"));
 
 const navigation = [
     {path: "/", element: <Home />},
-    {path: "/nasa/APOD", element: <APOD />}
+    {path: "/nasa/APOD", element: <APOD />},
+    {path: "/nasa/MarsHoverPhoto", element: <MarsPhoto />},
 ]
 
 function App() {
