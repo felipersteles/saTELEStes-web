@@ -70,6 +70,7 @@ type PageContainerParams = {
 
 export const PageContainer= styled.div<PageContainerParams>`
   height: 100%;
+  width: 100%;
   display: block;
   padding: 4px 8px;
   margin-bottom: 8px;

@@ -40,21 +40,32 @@ const APOD = () => {
     <>
       {!isLoading && (
         <PageContainer backgroundImage="https://img.ibxk.com.br/2019/05/17/a-17202525498312.jpg">
-          <APODPageContainer>
-            <APODImageContainer>
-              <APODImage src={photoData?.url} alt="Apod image" />
-            </APODImageContainer>
+          {photoData && (
+            <APODPageContainer>
+              <APODImageContainer>
+                <APODImage src={photoData?.url} alt="Apod image" />
+              </APODImageContainer>
 
-            <DescriptionContainer>
-              <APODTitle>{photoData?.title}</APODTitle>
-              <h3>Data da foto: {formatDate(photoData?.date)}</h3>
-              <APODDescription>{photoData?.explanation}</APODDescription>
-            </DescriptionContainer>
+              <DescriptionContainer>
+                <APODTitle>{photoData?.title}</APODTitle>
+                <h3>Data da foto: {formatDate(photoData?.date)}</h3>
+                <APODDescription>{photoData?.explanation}</APODDescription>
+              </DescriptionContainer>
 
-            <BackButtonContainer>
-              <Button onClick={() => navigate("/")}>Voltar</Button>
-            </BackButtonContainer>
-          </APODPageContainer>
+              <BackButtonContainer>
+                <Button onClick={() => navigate("/")}>Voltar</Button>
+              </BackButtonContainer>
+            </APODPageContainer>
+          )}
+
+          {!photoData && (
+            <APODPageContainer>
+              <APODTitle>Erro 404</APODTitle>
+              <BackButtonContainer>
+                <Button onClick={() => navigate("/")}>Voltar</Button>
+              </BackButtonContainer>
+            </APODPageContainer>
+          )}
         </PageContainer>
       )}
 
@@ -65,7 +76,6 @@ const APOD = () => {
 
 const APODPageContainer = styled.div`
   @media (min-width: 720px) {
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -27,28 +27,34 @@ const MarsPhoto = () => {
     <>
       {!isLoading && (
         <PageContainer backgroundImage="https://img.ibxk.com.br/2019/05/17/a-17202525498312.jpg">
-          <PageTitle>Imagens capturadas por um viajante em marte</PageTitle>
+          <PageTitle>
+            {marsRoverPhotos
+              ? "Imagens capturadas por um viajante em marte"
+              : "Erro 404"}
+          </PageTitle>
+          
+          {marsRoverPhotos && marsRoverPhotos?.length > 0 && (
+            <PhotoContainer>
+              {marsRoverPhotos?.map((photo, key) => (
+                <PhotoCard key={key}>
+                  <MarsHoverPhoto
+                    src={photo?.img_src}
+                    alt={photo?.camera?.full_name}
+                  />
 
-          {marsRoverPhotos &&
-            marsRoverPhotos?.length > 0 &&
-            marsRoverPhotos?.map((photo, key) => (
-              <PhotoContainer key={key}>
-                <MarsHoverPhoto
-                  src={photo?.img_src}
-                  alt={photo?.camera?.full_name}
-                />
-
-                <PhotoDescriptionContainer>
-                  <PhotoCameraTitle>
-                    {photo?.camera?.full_name}
-                  </PhotoCameraTitle>
-                  <PhotoCameraInfo>Sol number: {photo?.sol}</PhotoCameraInfo>
-                  <PhotoCameraInfo>
-                    Id do viajante: {photo?.rover?.id}
-                  </PhotoCameraInfo>
-                </PhotoDescriptionContainer>
-              </PhotoContainer>
-            ))}
+                  <PhotoDescriptionContainer>
+                    <PhotoCameraTitle>
+                      {photo?.camera?.full_name}
+                    </PhotoCameraTitle>
+                    <PhotoCameraInfo>Sol number: {photo?.sol}</PhotoCameraInfo>
+                    <PhotoCameraInfo>
+                      Id do viajante: {photo?.rover?.id}
+                    </PhotoCameraInfo>
+                  </PhotoDescriptionContainer>
+                </PhotoCard>
+              ))}
+            </PhotoContainer>
+          )}
 
           <BackButtonContainer>
             <Button onClick={() => navigate("/")}>Voltar</Button>
@@ -66,6 +72,10 @@ const PageTitle = styled.h1`
 `;
 
 const PhotoContainer = styled.div`
+  height: 100%;
+`;
+
+const PhotoCard = styled.div`
   display: flex;
   padding: 8px; 4px;
 
