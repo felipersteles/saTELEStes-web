@@ -61,7 +61,9 @@ const MarsPhoto = () => {
             {!isLoading && (
               <>
                 {(!marsRoverPhotos || marsRoverPhotos?.length === 0) && (
-                  <>Nenhuma foto encontrada, tente outro dia.</>
+                  <NotFound>
+                    <h1>Sem fotos para este dia, tente outra data.</h1>
+                  </NotFound>
                 )}
 
                 {marsRoverPhotos && marsRoverPhotos?.length > 0 && (
@@ -115,6 +117,16 @@ const DatePicker = styled.div`
 `;
 
 const PageTitle = styled.h1`
+  text-align: center;
+`;
+
+const NotFound = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-content: center;
+  align-items: center;
+
   text-align: center;
 `;
 
