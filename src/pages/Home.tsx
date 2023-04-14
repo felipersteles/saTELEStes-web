@@ -74,6 +74,7 @@ const HomePageContainer = styled.div`
 const QuoteContainer = styled.div`
   display: block;
   margin-bottom: 18px;
+  max-width: 99vw;
 
   @media (min-width: 720px) {
     width: 25%;

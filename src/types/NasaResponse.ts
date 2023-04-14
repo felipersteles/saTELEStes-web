@@ -11,10 +11,10 @@ export type NasaMarsHoverPhotoResponse = {
 };
 
 export type NasaMarsHoverPhoto = {
-  id?: number;
-  camera?: any;
-  earth_date?: string;
-  img_src?: string;
-  rover?: any;
-  sol?: number;
+  id: number;
+  camera: any;
+  earth_date: string;
+  img_src: string;
+  rover: any;
+  sol: number;
 };

@@ -5,106 +5,167 @@ import { NasaService } from "../apis";
 import Loading from "../components/Loading";
 import { PageContainer, Button, BackButtonContainer } from "../style";
 import { NasaMarsHoverPhoto } from "../types";
+import { Modal } from "../components/Modal";
+import { formatDate } from "../utils/format";
 
 const MarsPhoto = () => {
   const navigate = useNavigate();
 
   const [marsRoverPhotos, setMarsRoverPhotos] =
     useState<NasaMarsHoverPhoto[]>();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [date, setDate] = useState<string>("");
+  const [selectedImage, setSelectedImage] = useState<string>("");
+
+  const handleDateChange = (e: any) => {
+    setDate(e.target.value);
+  };
+
+  const searchImage = () => {
+    if (date !== "") getInSightFromNasaAPI();
+  };
 
   const getInSightFromNasaAPI = useCallback(() => {
-    NasaService.getMarsRoverPhoto("2015-6-3")
+    if (date === "") return;
+
+    NasaService.getMarsRoverPhoto(date)
       .then(({ photos }) => {
         setMarsRoverPhotos(photos);
       })
       .finally(() => setIsLoading(false));
-  }, []);
-
-  useEffect(getInSightFromNasaAPI, [getInSightFromNasaAPI]);
+  }, [date]);
 
   return (
     <>
-      {!isLoading && (
-        <PageContainer backgroundImage="https://img.ibxk.com.br/2019/05/17/a-17202525498312.jpg">
-          <PageTitle>
-            {marsRoverPhotos
-              ? "Imagens capturadas por um viajante em marte"
-              : "Erro 404"}
-          </PageTitle>
+      <Modal show={openModal} setShow={setOpenModal}>
+        <SelectedMarsHoverPhoto src={selectedImage} alt="Showing selected" />
+      </Modal>
 
-          {marsRoverPhotos && marsRoverPhotos?.length > 0 && (
-            <PhotoContainer>
-              {marsRoverPhotos?.map((photo, key) => (
-                <PhotoCard key={key}>
-                  <MarsHoverPhoto
-                    src={photo?.img_src}
-                    alt={photo?.camera?.full_name}
-                  />
+      <PageContainer backgroundImage="https://img.ibxk.com.br/2019/05/17/a-17202525498312.jpg">
+        <PageTitle>Imagens capturadas por um viajante em marte</PageTitle>
 
-                  <PhotoDescriptionContainer>
-                    <PhotoCameraTitle>
-                      {photo?.camera?.full_name}
-                    </PhotoCameraTitle>
-                    <PhotoCameraInfo>Sol number: {photo?.sol}</PhotoCameraInfo>
-                    <PhotoCameraInfo>
-                      Id do viajante: {photo?.rover?.id}
-                    </PhotoCameraInfo>
-                  </PhotoDescriptionContainer>
-                </PhotoCard>
-              ))}
+        <DatePicker>
+          <input
+            type="date"
+            name="date"
+            id="date"
+            onChange={handleDateChange}
+          />
+          <Button onClick={searchImage}>Pesquisar</Button>
+        </DatePicker>
 
-              <BackButtonContainer>
-                <Button onClick={() => navigate("/")}>Voltar</Button>
-              </BackButtonContainer>
-            </PhotoContainer>
-          )}
+        <ContentContainer>
+          <PhotosContainer>
+            {isLoading && <Loading />}
+            {!isLoading && (
+              <>
+                {(!marsRoverPhotos || marsRoverPhotos?.length === 0) && (
+                  <>Nenhuma foto encontrada, tente outro dia.</>
+                )}
 
-          {!marsRoverPhotos && (
-            <BackButtonContainer>
-              <Button onClick={() => navigate("/")}>Voltar</Button>
-            </BackButtonContainer>
-          )}
-        </PageContainer>
-      )}
+                {marsRoverPhotos && marsRoverPhotos?.length > 0 && (
+                  <PhotosList>
+                    {marsRoverPhotos?.map((photo, key) => (
+                      <PhotoCard
+                        key={key}
+                        onClick={() => {
+                          setSelectedImage(photo?.img_src);
+                          setOpenModal(true);
+                        }}
+                      >
+                        <MarsHoverPhoto
+                          src={photo?.img_src}
+                          alt={photo?.camera?.full_name}
+                        />
+                        <MarsHoverInfo>
+                          <>Nome do viajante: {photo?.rover?.name}</>
+                          <div>
+                            <div>
+                              Nome da camera: {photo?.camera?.full_name}
+                            </div>
+                            <div>
+                              Lançamento do viajante:
+                              {" " + formatDate(photo?.rover?.launch_date)}
+                            </div>
+                          </div>
+                        </MarsHoverInfo>
+                      </PhotoCard>
+                    ))}
+                  </PhotosList>
+                )}
+              </>
+            )}
+          </PhotosContainer>
+        </ContentContainer>
 
-      {isLoading && <Loading />}
+        <BackButtonContainer>
+          <Button onClick={() => navigate("/")}>Voltar</Button>
+        </BackButtonContainer>
+      </PageContainer>
     </>
   );
 };
+
+const DatePicker = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 12px;
+`;
 
 const PageTitle = styled.h1`
   text-align: center;
 `;
 
-const PhotoContainer = styled.div`
+const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const PhotosContainer = styled.div`
+  height: 60vh;
+  width: 90vw;
+  border: 1px solid #5b26ff;
+`;
+
+const PhotosList = styled.div`
+  width: 100%;
   height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+
+  &&::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const PhotoCard = styled.div`
   display: flex;
-  padding: 8px; 4px;
-
+  gap: 6px;
+  align-items: center;
+  padding: 1rem 0.5em;
+  width: 100%;
+  height: 20%;
   background-color: #0000008c;
-`;
-
-const PhotoDescriptionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 15px;
-`;
-
-const PhotoCameraTitle = styled.h4`
-  margin: 0;
-`;
-
-const PhotoCameraInfo = styled.h4`
-  margin-top: 4px;
-  margin-bottom: 0;
+  cursor: pointer;
 `;
 
 const MarsHoverPhoto = styled.img`
   max-height: 15vh;
+  max-width: 15vh;
+`;
+
+const MarsHoverInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const SelectedMarsHoverPhoto = styled.img`
+  max-height: 60vh;
+  max-width: 85vw;
 `;
 
 export default MarsPhoto;

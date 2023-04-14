@@ -2,31 +2,31 @@ import React from "react";
 import styled from "styled-components";
 
 const Loading = () => {
-	return (
-		<Box>
-			<Besteira>
-				<div className="loadingio-spinner-bean-eater-zy28yly0wqn">
-					<div className="ldio-wg7wqloygyn">
-						<div>
-							<div></div>
-							<div></div>
-							<div></div>
-						</div>
-						<div>
-							<div></div>
-							<div></div>
-							<div></div>
-						</div>
-					</div>
-				</div>
-			</Besteira>
-		</Box>
-	);
+  return (
+    <Box>
+      <Besteira>
+        <div className="loadingio-spinner-bean-eater-zy28yly0wqn">
+          <div className="ldio-wg7wqloygyn">
+            <div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </Besteira>
+    </Box>
+  );
 };
 
 const Box = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background: ${(props) => props.theme.body};
   color: ${(props) => props.theme.text};
   display: flex;
