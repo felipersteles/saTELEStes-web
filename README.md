@@ -1,6 +1,6 @@
 # SaTelestes
 
-De estrelas para estrelas rs
+De estrelas para estrelas rs. Acesse no [link](https://satelestes.netlify.app/).
 
 ## Sobre
 
