@@ -75,6 +75,13 @@ const APOD = () => {
 };
 
 const APODPageContainer = styled.div`
+  overflow-y: scroll;
+  scrollbar-width: none;
+
+  &&::-webkit-scrollbar {
+    display: none;
+  }
+
   @media (min-width: 720px) {
     display: flex;
     flex-direction: column;
