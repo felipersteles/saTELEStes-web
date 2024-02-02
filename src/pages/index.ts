@@ -1,3 +1,3 @@
 export * from "./Home";
-export * from "./APOD/APOD";
+export * from "./APOD/APODContainer";
 export * from "./MarsPhoto";
