@@ -1,11 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import Loading from "../../components/Loading";
-import {
-  BackButtonContainer,
-  Button,
-  PageContainer,
-  colors,
-} from "../../style";
+import { Button, PageContainer, colors } from "../../style";
 import { useNavigate } from "react-router-dom";
 import { NasaApodResponse } from "../../types";
 import { NasaService } from "../../apis";
@@ -18,7 +12,7 @@ const APODContainer = () => {
 
   const [photoData, setPhotoData] = useState<NasaApodResponse[]>();
   const [date, setDate] = useState<string>("");
-  const [selectedPhoto, setSelectedPhoto] = useState<NasaApodResponse>();
+  // const [selectedPhoto, setSelectedPhoto] = useState<NasaApodResponse>();
   const [isLoading, setIsLoading] = useState(true);
 
   const handleDateChange = (e: any) => {
@@ -33,6 +27,9 @@ const APODContainer = () => {
     NasaService.get5DaysAPODs()
       .then((res) => {
         setPhotoData(res);
+      })
+      .catch((err) => {
+        console.error(err);
       })
       .finally(() => setIsLoading(false));
   }, []);
