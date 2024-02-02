@@ -49,9 +49,9 @@ const Home = () => {
 
         <ButtonContainer>
           {buttons.map((button, key) => (
-            <Button key={key} onClick={button.onClick}>
+            <LinkButton key={key} onClick={button.onClick}>
               {button.content}
-            </Button>
+            </LinkButton>
           ))}
         </ButtonContainer>
       </HomePageContainer>
@@ -62,6 +62,12 @@ const Home = () => {
 };
 
 const HomePageContainer = styled.div`
+  padding: 150px 10px 0;
+
+  @media (min-width: 600px) {
+    padding: 0;
+  }
+
   @media (min-width: 720px) {
     display: flex;
     width: 100%;
@@ -84,6 +90,7 @@ const QuoteContainer = styled.div`
 
 const Quote = styled.h2`
   margin: 0;
+  text-align: center;
 `;
 
 const ButtonContainer = styled.div`
@@ -95,6 +102,10 @@ const ButtonContainer = styled.div`
   img {
     max-height: 5vh;
   }
+`;
+
+const LinkButton = styled(Button)`
+  border-radius: 12px;
 `;
 
 const SpikeFishing = styled.img`

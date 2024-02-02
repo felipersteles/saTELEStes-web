@@ -5,14 +5,15 @@ import { colors } from "../../style";
 
 type APODCardParams = {
   data: NasaApodResponse;
+  selectData: (apod: NasaApodResponse) => void;
 };
 
-const APODCard = ({ data }: APODCardParams) => {
+const APODCard = ({ data, selectData }: APODCardParams) => {
   const limitTitle = window.innerWidth < 720 ? 20 : 100;
   const limitCopyright = window.innerWidth < 720 ? 35 : 100;
 
   return (
-    <APODCardContainer>
+    <APODCardContainer onClick={() => selectData(data)}>
       <Image src={data.url} alt="Apod image" />
       <Description>
         <TitleBox>
@@ -33,8 +34,10 @@ const APODCardContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 9px;
-  background-color: #000;
-  padding: 5px 5px;
+  background-color: ${colors.blueOpacity};
+
+  padding: 5px 7px;
+  margin: 0 10px;
   border-radius: 5px;
   cursor: pointer;
 
@@ -53,7 +56,7 @@ const Image = styled.img`
   flex: 1;
   width: 50px;
   height: 50px;
-  border-radius: 2px;
+  border-radius: 4px;
 
   @media (min-width: 720px) {
     width: 100px;
@@ -61,7 +64,7 @@ const Image = styled.img`
   }
 
   @media (min-width: 900px) {
-    width: 110px;
+    width: 100px;
     height: 110px;
   }
 `;

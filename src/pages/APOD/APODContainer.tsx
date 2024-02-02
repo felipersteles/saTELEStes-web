@@ -6,21 +6,24 @@ import { NasaService } from "../../apis";
 import NotFound from "../../components/NotFound";
 import styled from "styled-components";
 import APODList from "./APODList";
+import Loading from "../../components/Loading";
+import APOD from "./APOD";
 
 const APODContainer = () => {
   const navigate = useNavigate();
 
   const [photoData, setPhotoData] = useState<NasaApodResponse[]>();
-  const [date, setDate] = useState<string>("");
-  // const [selectedPhoto, setSelectedPhoto] = useState<NasaApodResponse>();
+  const [selectedPhoto, setSelectedPhoto] = useState<NasaApodResponse | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleDateChange = (e: any) => {
-    setDate(e.target.value);
+  const selectApod = (apod: NasaApodResponse) => {
+    setSelectedPhoto(apod);
   };
 
-  const searchImage = () => {
-    if (date !== "") console.log(date);
+  const unselectApod = () => {
+    setSelectedPhoto(null);
   };
 
   const getPhotoFromNasaAPI = useCallback(() => {
@@ -38,37 +41,19 @@ const APODContainer = () => {
 
   return (
     <PageContainer backgroundImage="https://img.ibxk.com.br/2019/05/17/a-17202525498312.jpg">
-      {photoData && (
+      {!selectedPhoto && photoData && (
         <APODListContainer>
           <Title>Astronomy Picture of Day</Title>
-          <APODList isLoading={isLoading} data={photoData} />
+          <APODList data={photoData} selectData={selectApod} />
           <ButtonArea>
-            <DatePicker>
-              <DatePickerContainer>
-                <DateLabel>Start:</DateLabel>
-                <input
-                  type="date"
-                  name="date"
-                  id="date"
-                  onChange={handleDateChange}
-                />
-              </DatePickerContainer>
-              <DatePickerContainer>
-                <DateLabel>End:</DateLabel>
-                <input
-                  type="date"
-                  name="date"
-                  id="date"
-                  onChange={handleDateChange}
-                />
-              </DatePickerContainer>
-              <SearchButton onClick={searchImage}>Search</SearchButton>
-            </DatePicker>
-
             <BackButton onClick={() => navigate("/")}>Back to home</BackButton>
           </ButtonArea>
         </APODListContainer>
       )}
+      {selectedPhoto && (
+        <APOD data={selectedPhoto} unselectApod={unselectApod} />
+      )}
+      {isLoading && <Loading />}
       {!photoData && !isLoading && <NotFound />}
     </PageContainer>
   );
@@ -76,16 +61,16 @@ const APODContainer = () => {
 
 const Title = styled.h1`
   color: ${colors.branco};
-  -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: black;
+  text-align: center;
+  font-family: "Catamaran";
 
   @media (min-width: 720px) {
-    -webkit-text-stroke-width: 1px;
-    font-size: 25px;
+    font-size: 28px;
   }
 
   @media (min-width: 900px) {
-    font-size: 60px;
+    font-size: 65px;
     margin: 25px 10px 0;
   }
 `;
@@ -94,30 +79,11 @@ const APODListContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-`;
+  overflow-y: scroll;
+  height: 100%;
 
-const DateLabel = styled.label`
-  font-size: 20px;
-  -webkit-text-stroke-width: 0.3px;
-  -webkit-text-stroke-color: black;
-`;
-
-const DatePickerContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-`;
-
-const DatePicker = styled.div`
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-direction: column;
-
-  @media (min-width: 720px) {
-    flex-direction: row;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 
@@ -132,13 +98,15 @@ const ButtonArea = styled.div`
   }
 `;
 
-const SearchButton = styled(Button)``;
-
 const BackButton = styled(Button)`
-  margin-top: 20px;
+  margin: 20px 0 120px;
 
   @media (min-width: 720px) {
     margin-top: 30px;
+    width: 300px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 600;
   }
 `;
 

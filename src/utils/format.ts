@@ -33,11 +33,13 @@ const formatDate = (date: string | undefined, isShort?: boolean): string => {
 
   let stringDate = new Date(date);
 
-  let day = stringDate.getDate();
+  let day = String(stringDate.getDate());
 
   let month = stringDate.getMonth();
 
   let year = stringDate.getFullYear();
+
+  if (Number(day) < 10) day = `0${day}`;
 
   if (isShort) return day + "/" + shortMonthNames[month] + "/" + year;
   return day + "/" + monthNames[month] + "/" + year;

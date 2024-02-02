@@ -9,6 +9,8 @@ export const Button = styled.button`
   box-shadow: -0.3px 0.3px 0 black;
   left: 40vw;
   display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 10000;
   cursor: pointer;
 
@@ -74,7 +76,6 @@ export const PageContainer = styled.div<PageContainerParams>`
   height: 100%;
   width: 100%;
   display: block;
-  padding: 4px 8px;
   margin-bottom: 8px;
 
   margin: 0;

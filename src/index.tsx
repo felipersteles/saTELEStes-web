@@ -1,17 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
-import Main from './Main';
+import Main from "./Main";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 
 root.render(
-  <React.StrictMode>
-      <BrowserRouter>
-        <Main />
-      </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <Main />
+  </BrowserRouter>
 );
