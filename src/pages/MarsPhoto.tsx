@@ -7,6 +7,7 @@ import { PageContainer, Button, BackButtonContainer } from "../style";
 import { NasaMarsHoverPhoto } from "../types";
 import { Modal } from "../components/Modal";
 import { formatDate } from "../utils/format";
+import MarsParticles from "../components/MarsParticles";
 
 const MarsPhoto = () => {
   const navigate = useNavigate();
@@ -29,8 +30,11 @@ const MarsPhoto = () => {
   const getInSightFromNasaAPI = useCallback(() => {
     if (date === "") return;
 
+    setIsLoading(true);
+
     NasaService.getMarsRoverPhoto(date)
       .then(({ photos }) => {
+        // console.log(photos);
         setMarsRoverPhotos(photos);
       })
       .finally(() => setIsLoading(false));
@@ -38,12 +42,14 @@ const MarsPhoto = () => {
 
   return (
     <>
+      <MarsParticles />
+
       <Modal show={openModal} setShow={setOpenModal}>
         <SelectedMarsHoverPhoto src={selectedImage} alt="Showing selected" />
       </Modal>
 
-      <PageContainer backgroundImage="https://img.ibxk.com.br/2019/05/17/a-17202525498312.jpg">
-        <PageTitle>Imagens capturadas por um viajante em marte</PageTitle>
+      <Container>
+        <PageTitle>Mars Rover Photos</PageTitle>
 
         <DatePicker>
           <input
@@ -52,7 +58,7 @@ const MarsPhoto = () => {
             id="date"
             onChange={handleDateChange}
           />
-          <Button onClick={searchImage}>Pesquisar</Button>
+          <Button onClick={searchImage}>Search</Button>
         </DatePicker>
 
         <ContentContainer>
@@ -62,7 +68,7 @@ const MarsPhoto = () => {
               <>
                 {(!marsRoverPhotos || marsRoverPhotos?.length === 0) && (
                   <NotFound>
-                    <h1>Sem fotos para este dia, tente outra data.</h1>
+                    <h1>No pictures found in this day. Try another.</h1>
                   </NotFound>
                 )}
 
@@ -81,13 +87,11 @@ const MarsPhoto = () => {
                           alt={photo?.camera?.full_name}
                         />
                         <MarsHoverInfo>
-                          <>Nome do viajante: {photo?.rover?.name}</>
+                          <>Rover: {photo?.rover?.name}</>
                           <div>
+                            <div>Camera: {photo?.camera?.full_name}</div>
                             <div>
-                              Nome da camera: {photo?.camera?.full_name}
-                            </div>
-                            <div>
-                              Lançamento do viajante:
+                              Launch:
                               {" " + formatDate(photo?.rover?.launch_date)}
                             </div>
                           </div>
@@ -101,39 +105,47 @@ const MarsPhoto = () => {
           </PhotosContainer>
         </ContentContainer>
 
-        <BackButtonContainer>
-          <Button onClick={() => navigate("/")}>Voltar</Button>
-        </BackButtonContainer>
-      </PageContainer>
+        <ButtonContainer>
+          <Button onClick={() => navigate("/")}>Back to home</Button>
+        </ButtonContainer>
+      </Container>
     </>
   );
 };
+
+const Container = styled(PageContainer)`
+  z-index: 100;
+`;
 
 const DatePicker = styled.div`
   display: flex;
   justify-content: center;
   gap: 1rem;
   margin-bottom: 12px;
+  z-index: 999;
 `;
 
 const PageTitle = styled.h1`
   text-align: center;
+  z-index: 999;
 `;
 
 const NotFound = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  align-content: center;
+  justify-content: center;
   align-items: center;
 
   text-align: center;
+  z-index: 999;
 `;
 
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 999;
 `;
 
 const PhotosContainer = styled.div`
@@ -173,6 +185,10 @@ const MarsHoverInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+const ButtonContainer = styled(BackButtonContainer)`
+  margin-top: 20px;
 `;
 
 const SelectedMarsHoverPhoto = styled.img`

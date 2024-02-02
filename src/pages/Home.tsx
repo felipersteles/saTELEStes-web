@@ -15,7 +15,7 @@ const Home = () => {
 
   const buttons = [
     {
-      onClick: () => navigate("/nasa/APOD"),
+      onClick: () => navigate("/nasa/apod"),
       content: <img src={satelite} alt="APOD button" />,
     },
     {
@@ -30,7 +30,7 @@ const Home = () => {
       content: <SunIcon size={"5vh"} />,
     },
     {
-      onClick: () => navigate("/nasa/MarsHoverPhoto"),
+      onClick: () => navigate("/nasa/mars"),
       content: <PlanetIcon size={"5vh"} />,
     },
   ];

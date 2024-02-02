@@ -14,7 +14,6 @@ const APOD = ({ data, unselectApod }: APODParams) => {
   return (
     <APODContainer>
       <Image src={data.url} alt="astronomy pic of the day" />
-      <Title>{data.title}</Title>
       <Description>
         <Intro>
           <Date>{formatDate(data.date)}</Date>
@@ -50,16 +49,6 @@ const Image = styled.img`
   margin-top: 5vw;
   width: 90vw;
   height: auto;
-`;
-
-const Title = styled.h1`
-  text-align: center;
-
-  -webkit-text-stroke-color: black;
-
-  @media (min-width: 720px) {
-    font-size: 35px;
-  }
 `;
 
 const Description = styled.div`

@@ -41,23 +41,45 @@ const APODContainer = () => {
 
   return (
     <PageContainer backgroundImage="https://img.ibxk.com.br/2019/05/17/a-17202525498312.jpg">
-      {!selectedPhoto && photoData && (
-        <APODListContainer>
-          <Title>Astronomy Picture of Day</Title>
-          <APODList data={photoData} selectData={selectApod} />
-          <ButtonArea>
-            <BackButton onClick={() => navigate("/")}>Back to home</BackButton>
-          </ButtonArea>
-        </APODListContainer>
-      )}
-      {selectedPhoto && (
-        <APOD data={selectedPhoto} unselectApod={unselectApod} />
-      )}
-      {isLoading && <Loading />}
-      {!photoData && !isLoading && <NotFound />}
+      <Container>
+        <Title>
+          {!selectedPhoto && "Astronomy Picture of Day"}
+          {selectedPhoto && selectedPhoto.title}
+        </Title>
+        {!selectedPhoto && photoData && (
+          <APODListContainer>
+            <APODList data={photoData} selectData={selectApod} />
+            <ButtonArea>
+              <BackButton onClick={() => navigate("/")}>
+                Back to home
+              </BackButton>
+            </ButtonArea>
+          </APODListContainer>
+        )}
+
+        {selectedPhoto && (
+          <APOD data={selectedPhoto} unselectApod={unselectApod} />
+        )}
+
+        {isLoading && <Loading />}
+
+        {!photoData && !isLoading && <NotFound />}
+      </Container>
     </PageContainer>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 
 const Title = styled.h1`
   color: ${colors.branco};
@@ -79,12 +101,6 @@ const APODListContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  overflow-y: scroll;
-  height: 100%;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const ButtonArea = styled.div`
@@ -102,7 +118,7 @@ const BackButton = styled(Button)`
   margin: 20px 0 120px;
 
   @media (min-width: 720px) {
-    margin-top: 30px;
+    margin: 30px 0 200px;
     width: 300px;
     height: 50px;
     font-size: 18px;
