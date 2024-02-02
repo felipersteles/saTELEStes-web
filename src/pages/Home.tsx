@@ -70,6 +70,7 @@ const HomePageContainer = styled.div`
 
   @media (min-width: 720px) {
     display: flex;
+    gap: 50px;
     width: 100%;
     height: 100%;
     align-items: center;
@@ -84,7 +85,6 @@ const QuoteContainer = styled.div`
 
   @media (min-width: 720px) {
     width: 25%;
-    margin-left: 18px;
   }
 `;
 

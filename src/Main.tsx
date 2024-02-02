@@ -10,8 +10,8 @@ const MarsPhoto = lazy(() => import("./pages/MarsPhoto"));
 
 const navigation = [
   { path: "/", element: <Home /> },
-  { path: "/nasa/APOD", element: <APOD /> },
-  { path: "/nasa/MarsHoverPhoto", element: <MarsPhoto /> },
+  { path: "/nasa/apod", element: <APOD /> },
+  { path: "/nasa/mars", element: <MarsPhoto /> },
 ];
 
 function App() {

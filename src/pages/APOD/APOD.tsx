@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { NasaApodResponse } from "../../types";
 import { Button, colors } from "../../style";
-import { formatDate } from "../../utils/format";
+import { formatDate, limitString } from "../../utils/format";
 
 type APODParams = {
   data: NasaApodResponse;
@@ -9,6 +9,8 @@ type APODParams = {
 };
 
 const APOD = ({ data, unselectApod }: APODParams) => {
+  const limit = window.innerWidth < 720 ? 41 : 100;
+
   return (
     <APODContainer>
       <Image src={data.url} alt="astronomy pic of the day" />
@@ -16,7 +18,9 @@ const APOD = ({ data, unselectApod }: APODParams) => {
       <Description>
         <Intro>
           <Date>{formatDate(data.date)}</Date>
-          <Date>{data.copyright}</Date>
+          <By>
+            By: <Date>{limitString(data.copyright, limit)}</Date>
+          </By>
         </Intro>
 
         <Essay>{data.explanation}</Essay>
@@ -63,14 +67,29 @@ const Description = styled.div`
 `;
 
 const Intro = styled.div`
-  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  flex-direction: column;
+  gap: 15px;
+
+  @media (min-width: 720px) {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+`;
+
+const By = styled.span`
+  font-size: 18px;
+
+  @media (min-width: 720px) {
+    color: ${colors.purpleWhite};
+  }
 `;
 
 const Date = styled.span`
   color: ${colors.purpleWhite};
+  font-size: 18px;
 
   @media (min-width: 720px) {
     font-size: 20px;
@@ -79,7 +98,7 @@ const Date = styled.span`
 
 const Essay = styled.p`
   @media (min-width: 720px) {
-    font-size: 22px;
+    font-size: 25px;
   }
 `;
 

@@ -45,7 +45,9 @@ const formatDate = (date: string | undefined, isShort?: boolean): string => {
   return day + "/" + monthNames[month] + "/" + year;
 };
 
-const limitString = (text: string, limit: number) => {
+const limitString = (text?: string, limit?: number) => {
+  if (!text || !limit) return;
+
   return text.length > limit ? `${text.substring(0, limit)}...` : text;
 };
 
