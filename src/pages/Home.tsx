@@ -19,7 +19,7 @@ const Home = () => {
       content: <img src={satelite} alt="APOD button" />,
     },
     {
-      onClick: () => window.open("https://felipeteles.netlify.app/"),
+      onClick: () => window.open("https://felipersteles.netlify.app/"),
       content: <img src={logo} alt="Personal site logo" />,
     },
     {
@@ -41,8 +41,8 @@ const Home = () => {
         <QuoteContainer>
           <Quote>
             <i>
-              Se choras por ter pedido o sol, as lágrimas te impedirão de olhar
-              as estrelas e a lua...
+              If you love a flower that lives on a star, it is sweet to look at
+              the sky at night...
             </i>
           </Quote>
         </QuoteContainer>

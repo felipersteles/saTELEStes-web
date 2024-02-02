@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  border-radius: 1rem;
+  border-radius: 5px;
   color: #effdea;
   border: none;
   padding: 1vh 8vh;
-  border: 1px solid black;
+  border: 1.5px solid black;
   box-shadow: -0.3px 0.3px 0 black;
   left: 40vw;
   display: flex;
@@ -77,6 +77,8 @@ export const PageContainer = styled.div<PageContainerParams>`
   padding: 4px 8px;
   margin-bottom: 8px;
 
+  margin: 0;
+
   position: fixed;
   top: 0;
   left: 0;
@@ -94,7 +96,5 @@ export const PageContainer = styled.div<PageContainerParams>`
 
 export const BackButtonContainer = styled.div`
   display: flex;
-  width: 100%;
   justify-content: center;
-  margin-top: 8px;
 `;

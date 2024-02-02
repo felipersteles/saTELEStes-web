@@ -1,15 +1,50 @@
-const formatDate = (date: string) => {
-  if (!date) return;
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
-  let objectDate = new Date(date);
+const shortMonthNames = [
+  "jan",
+  "feb",
+  "mar",
+  "apr",
+  "may",
+  "jun",
+  "jul",
+  "aug",
+  "sep",
+  "oct",
+  "nov",
+  "dec",
+];
 
-  let day = objectDate.getDate();
+const formatDate = (date: string | undefined, isShort?: boolean): string => {
+  if (!date) return "";
 
-  let month = objectDate.getMonth();
+  let stringDate = new Date(date);
 
-  let year = objectDate.getFullYear();
+  let day = stringDate.getDate();
 
-  return `${day}/${month}/${year}`;
+  let month = stringDate.getMonth();
+
+  let year = stringDate.getFullYear();
+
+  if (isShort) return day + "/" + shortMonthNames[month] + "/" + year;
+  return day + "/" + monthNames[month] + "/" + year;
 };
 
-export { formatDate };
+const limitString = (text: string, limit: number) => {
+  return text.length > limit ? `${text.substring(0, limit)}...` : text;
+};
+
+export { formatDate, limitString };
