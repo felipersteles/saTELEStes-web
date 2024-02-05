@@ -1,43 +1,52 @@
 # SaTelestes
 
-De estrelas para estrelas rs. Acesse no [link](https://satelestes.netlify.app/).
+This React application brings you stunning visuals from NASA's open APIs, showcasing both cosmic marvels and Martian landscapes in an interactive and user-friendly interface. See [here](https://satelestes.netlify.app/).
 
-## Sobre
+## Immerse yourself in:
+- Astronomy Picture of the Day (APOD): Get mesmerized by the universe's daily spectacle, featuring exquisite celestial objects and intriguing phenomena.
+- Mars Rover Photos: Travel to the Red Planet and embark on a visual exploration of its diverse terrain captured by the Curiosity and Perseverance rovers.
 
-Site desenvolvido por mim [Felipe Teles](https://github.com/felipersteles) em react consumindo a API pública disponiblizada pela NASA. Para saber mais sobre a API estou deixando abaixo o site com os serviços disponiveis e algumas documentações:
+## Experience a smooth journey with:
+- Intuitive Interface: Navigate effortlessly through the app's clean and responsive design, optimized for various devices.
+- Informative Descriptions: Gain deeper understanding with detailed explanations, dates, and links to NASA's websites for further exploration.
+- Accessibility & Responsiveness: Built with React best practices, the app ensures accessibility and smooth functioning across different browsers and screen sizes.
 
-- [Site da nasa](https://api.nasa.gov/)
+## Contribute to the cosmos:
+- Open-Source & Customizable: Fork the repository, contribute to its development, and tailor it to your specific needs.
+- Share the Spacefaring Experience: Integrate this app into your projects or personal websites to share the wonder of space exploration.
 
-## Como rodar
+## How to run
 
-### Pre requisitos:
+### Pre requisities:
 
 - [Node](https://nodejs.org/en)
 - [React](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 
-### Rodando o projeto:
+You must have a key from [Nasa api's site](https://api.nasa.gov/) and put the key on the [nasa.ts](./src/api/nasa.ts) file.
+
+### Running:
 
 ```bash
-## Clonando repositório:
+## Clone repository:
 $ git clone https://github.com/felipersteles/saTELEStes-web.git
 
 
-## Caso seja a primeira vez
-## Faça download das dependencias:
+## If first time
+## Download the dependencies:
 $ npm i
 
-## ou
+## or
 $ yarn
 
-## Rode o projeto:
+## Run project:
 $ npm start
 
-# ou
+# or
 $ yarn start
 
 ```
 
 ## Dependencias
 
-Leia o arquivo [package.json](./package.json).
+See [package.json](./package.json).
