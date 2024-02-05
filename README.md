@@ -1,5 +1,5 @@
 
-<img src="https://cdnb.artstation.com/p/assets/images/images/008/466/999/large/kseniya-george-beebopvk.jpg?1512987658" width="500" height="500"/>
+<img src="https://cdnb.artstation.com/p/assets/images/images/008/466/999/large/kseniya-george-beebopvk.jpg?1512987658" width="100%" height="500"/>
 
 # SaTelestes
 
