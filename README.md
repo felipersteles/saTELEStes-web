@@ -23,7 +23,7 @@ This React application brings you stunning visuals from NASA's open APIs, showca
 - [React](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 
-You must have a key from [Nasa api's site](https://api.nasa.gov/) and put the key on the [nasa.ts](./src/api/nasa.ts) file.
+You must have a key from [Nasa api's site](https://api.nasa.gov/) and put the key on the [nasa.ts](./src/apis/nasa.ts) file.
 
 ### Running:
 
